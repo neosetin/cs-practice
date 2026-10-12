@@ -19,7 +19,7 @@ def parse_record(line: str) -> dict:
         raise ValueError("Температура должна быть числом.")
         
     # ИСПРАВЛЕНО: Ключ изменен с "temp" на "temperature" по требованию тестов
-    return {"city": city, "temperature": temp, "date": date}
+    return {"city": city.strip(), "temperature": temp, "date": date.strip()}
 
 
 def read_valid(lines: list[str]) -> list[dict]:
