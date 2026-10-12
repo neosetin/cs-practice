@@ -19,3 +19,18 @@ def parse_record(line: str) -> dict:
         raise ValueError("Температура должна быть числом.")
         
     return {"city": city, "temp": temp, "date": date}
+
+def read_valid(lines: list[str]) -> list[dict]:
+
+    records = []
+    
+    for line in lines:
+        # Пустые строки пропускаются молча
+        if not line.strip():
+            continue
+        try:
+            records.append(parse_record(line))
+        except ValueError:
+            # Ошибочные строки пропускаются, не роняя программу
+            pass
+    return records
