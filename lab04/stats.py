@@ -34,3 +34,25 @@ def read_valid(lines: list[str]) -> list[dict]:
             # Ошибочные строки пропускаются, не роняя программу
             pass
     return records
+
+def average_by_city(records: list[dict]) -> dict:
+
+    city_temps = {}
+    
+    for record in records:
+        city = record["city"]
+        city_temps.setdefault(city, []).append(record["temp"])
+        
+    return {city: round(sum(temps) / len(temps), 1) for city, temps in city_temps.items()}
+
+
+def warmest_city(records: list[dict]) -> str:
+
+    avg_temps = average_by_city(records)
+    
+    if not avg_temps:
+        return ""
+        
+    # Сортируем по алфавиту, чтобы при равенстве max() выбрал первый
+    sorted_cities = sorted(avg_temps.keys())
+    return max(sorted_cities, key=lambda city: avg_temps[city])
