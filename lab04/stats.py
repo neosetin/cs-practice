@@ -18,7 +18,9 @@ def parse_record(line: str) -> dict:
     except ValueError:
         raise ValueError("Температура должна быть числом.")
         
-    return {"city": city, "temp": temp, "date": date}
+    # ИСПРАВЛЕНО: Ключ изменен с "temp" на "temperature" по требованию тестов
+    return {"city": city, "temperature": temp, "date": date}
+
 
 def read_valid(lines: list[str]) -> list[dict]:
 
@@ -35,13 +37,15 @@ def read_valid(lines: list[str]) -> list[dict]:
             pass
     return records
 
+
 def average_by_city(records: list[dict]) -> dict:
 
     city_temps = {}
     
     for record in records:
         city = record["city"]
-        city_temps.setdefault(city, []).append(record["temp"])
+        # ИСПРАВЛЕНО: Ключ изменен с "temp" на "temperature"
+        city_temps.setdefault(city, []).append(record["temperature"])
         
     return {city: round(sum(temps) / len(temps), 1) for city, temps in city_temps.items()}
 
@@ -53,6 +57,6 @@ def warmest_city(records: list[dict]) -> str:
     if not avg_temps:
         return ""
         
-    # Сортируем по алфавиту, чтобы при равенстве max() выбрал первый
+    # Сортируем ключи по алфавиту. Функция max() при равенстве значений
     sorted_cities = sorted(avg_temps.keys())
     return max(sorted_cities, key=lambda city: avg_temps[city])
