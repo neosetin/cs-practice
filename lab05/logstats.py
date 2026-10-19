@@ -1,6 +1,6 @@
 def parse_event(line: str) -> dict:
 
-    cleaned_line = line.rstrip('\n')
+    cleaned_line = line.strip('\n').strip(' ')
     parts = cleaned_line.split(maxsplit=2)
     
     if len(parts) < 3:
@@ -19,7 +19,7 @@ def parse_event(line: str) -> dict:
 
 
 def count_levels(lines) -> dict:
-
+    
     counts = {}
     
     for line in lines:
@@ -69,4 +69,4 @@ def format_report(counts: dict, errors: list) -> str:
     for msg, count in errors:
         report_lines.append(f"- {msg} - {count}")
         
-    return "\n".join(report_lines)
+    return "\n".join(report_lines) + "\n"
