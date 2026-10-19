@@ -8,7 +8,7 @@ def parse_event(line: str) -> dict:
         
     time, level, message = parts
     
-    if len(time) != 8 or time[2] != ':' or time[5] != ':':
+    if len(time) != 19 or time[10] != 'T' or time[13] != ':' or time[16] != ':':
         raise ValueError("Некорректный формат времени")
         
     allowed_levels = {"DEBUG", "INFO", "WARNING", "ERROR"}
@@ -19,7 +19,7 @@ def parse_event(line: str) -> dict:
 
 
 def count_levels(lines) -> dict:
-    
+
     counts = {}
     
     for line in lines:

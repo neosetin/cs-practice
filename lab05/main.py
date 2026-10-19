@@ -10,7 +10,7 @@ def main():
         errors = top_errors(log, 3)
         
     total_lines = sum(counts.values())
-    
+
     print(total_lines)
     print(counts.get("ERROR", 0))
     print(counts.get("BROKEN", 0))
