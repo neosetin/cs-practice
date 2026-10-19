@@ -1,4 +1,5 @@
 def parse_event(line: str) -> dict:
+
     cleaned_line = line.rstrip('\n')
     parts = cleaned_line.split(maxsplit=2)
     
