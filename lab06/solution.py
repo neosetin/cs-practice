@@ -1,18 +1,21 @@
 import os
 
 def count_by_extension(paths: list[str]) -> dict[str, int]:
-    extensions = {}
+    result = {}
     for path in paths:
         
-        filename = os.path.basename(path)
-        
-        if "." in filename:
+        filename = path.split("/")[-1]
+
+        if "." in filename and not filename.startswith("."):
             ext = filename.split(".")[-1].lower()
         else:
             ext = ""
 
-        extensions[ext] = extensions.get(ext, 0) + 1
-    return extensions
+        if ext in result:
+            result[ext] += 1
+        else:
+            result[ext] = 1
+    return result
 
 def deepest_path(paths: list[str]) -> str:
     if not paths:
