@@ -41,8 +41,7 @@ def parse_settings(lines: list[str]) -> dict:
     
     for line in lines:
         if '#' in line:
-            parts_comment = line.split('#', 1)
-            line = parts_comment[0]
+            line = line.split('#', 1)[0]
             
         line = line.strip()
         if not line:
@@ -50,32 +49,37 @@ def parse_settings(lines: list[str]) -> dict:
 
         if line.startswith('-'):
             item = line[1:].strip()
-            if last_key in res:
+            if last_key is not None and last_key in res:
                 res[last_key].append(item)
             continue
 
         if ':' in line:
-            parts = line.split(':', 1)
-            k = parts[0].strip()
-            v = parts[1].strip()
+            k, v = line.split(':', 1)
+            k = k.strip()
+            v = v.strip()
             
             if not v:
                 last_key = k
                 res[last_key] = []
             else:
-
-                v_temp = v.replace(',', '.')
-                if v.isdigit():
-                    v = int(v)
-                elif '.' in v_temp and v_temp.replace('.', '', 1).isdigit():
-                    v = float(v_temp)
-                elif v == 'true' or v == 'yes':
-                    v = True
-                elif v == 'false' or v == 'no':
-                    v = False
-                    
-                res[k] = v
                 last_key = None
+                
+                if v.lower() in ('true', 'yes'):
+                    v = True
+                elif v.lower() in ('false', 'no'):
+                    v = False
+                else:
+                    v_temp = v.replace(',', '.')
+                    try:
+                        n = float(v_temp)
+                        if n.is_integer():
+                            v = int(n)
+                        else:
+                            v = n
+                    except ValueError:
+                        pass 
+                        
+                res[k] = v
                 
     return res
 
