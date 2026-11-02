@@ -69,15 +69,13 @@ def parse_settings(lines: list[str]) -> dict:
                 elif v.lower() in ('false', 'no'):
                     v = False
                 else:
-                    v_temp = v.replace(',', '.')
                     try:
-                        n = float(v_temp)
-                        if n.is_integer():
-                            v = int(n)
-                        else:
-                            v = n
+                        v = int(v)
                     except ValueError:
-                        pass 
+                        try:
+                            v = float(v)
+                        except ValueError:
+                            pass 
                         
                 res[k] = v
                 
