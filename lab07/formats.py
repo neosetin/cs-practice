@@ -76,3 +76,14 @@ def parse_settings(lines: list[str]) -> dict:
                 
     return res
 
+def merge_by_key(rows: list[dict], extra: dict, key: str = 'id') -> list[dict]:
+    for row in rows:
+        if key in row:
+            val = str(row[key])
+            if val in extra:
+                info = extra[val]
+                for k, v in info.items():
+                    if k not in row:
+                        row[k] = v
+    return rows
+
