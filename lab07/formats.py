@@ -63,10 +63,12 @@ def parse_settings(lines: list[str]) -> dict:
                 last_key = k
                 res[last_key] = []
             else:
+
+                v_temp = v.replace(',', '.')
                 if v.isdigit():
                     v = int(v)
-                elif '.' in v and v.replace('.', '', 1).isdigit():
-                    v = float(v)
+                elif '.' in v_temp and v_temp.replace('.', '', 1).isdigit():
+                    v = float(v_temp)
                 elif v == 'true' or v == 'yes':
                     v = True
                 elif v == 'false' or v == 'no':
