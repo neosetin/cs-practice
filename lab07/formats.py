@@ -41,7 +41,8 @@ def parse_settings(lines: list[str]) -> dict:
     
     for line in lines:
         if '#' in line:
-            line = line.split('#')[0]
+            parts_comment = line.split('#', 1)
+            line = parts_comment[0]
             
         line = line.strip()
         if not line:
