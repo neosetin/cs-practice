@@ -67,9 +67,9 @@ def parse_settings(lines: list[str]) -> dict:
                     v = int(v)
                 elif '.' in v and v.replace('.', '', 1).isdigit():
                     v = float(v)
-                elif v in ['true', 'yes']:
+                elif v == 'true' or v == 'yes':
                     v = True
-                elif v in ['false', 'no']:
+                elif v == 'false' or v == 'no':
                     v = False
                     
                 res[k] = v
