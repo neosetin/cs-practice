@@ -24,3 +24,15 @@ def change_vector(values):
     res_vec[::2] = -1
     return res_vec.tolist()
 
+
+def cap_above(values, limit):
+    temp_arr = np.asarray(values, dtype=float).copy()
+    temp_arr[temp_arr > limit] = limit
+    return temp_arr.tolist()
+
+
+def celsius_to_fahrenheit(values):
+    c_arr = np.asarray(values, dtype=float)
+    f_arr = c_arr * 9 / 5 + 32
+    return f_arr.tolist()
+
